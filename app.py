@@ -12,18 +12,18 @@ from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 from flasgger import Swagger
 from flask_mail import Mail, Message
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+from dotenv import load_dotenv
 
-
-# SECRET_KEY = os.getenv("SECRET_KEY", "Nq8tRf37H")
+load_dotenv()
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "Nq8tRf37H")
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
-DATABASE_URL = "postgresql+psycopg2://postgres:Saurabh123@127.0.0.1:5432/EXPENSE TRACKER"
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+# DATABASE_URL = "postgresql+psycopg2://postgres:Saurabh123@127.0.0.1:5432/EXPENSE TRACKER"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JWT_SECRET_KEY'] = "supersecretkey"
+app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
